@@ -3,6 +3,8 @@
 #include "GameEngine/GameEngineMain.h"
 #include "GameEngine/EntitySystem/Components/CollidableComponent.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
+#include "GameEngine/EntitySystem/Components/SoundComponent.h"
+#include "GameEngine/EntitySystem/Components/BackgroundComponent.h"
 #include "GameEngine/Util/CameraManager.h"
 #include "Game/GameEntities/PlayerEntity.h"
 #include "Game/GameEntities/ObstacleEntity.h"
@@ -171,6 +173,10 @@ void GameBoard::CreateBackGround()
 {
 	GameEngine::Entity* bgEntity = new GameEngine::Entity();
 	GameEngine::SpriteRenderComponent* render = bgEntity->AddComponent<GameEngine::SpriteRenderComponent>();
+	GameEngine::SoundComponent* const sound = bgEntity -> AddComponent<GameEngine::SoundComponent>();
+	GameEngine::BackgroundComponent* backgroundComponent = bgEntity->AddComponent<GameEngine::BackgroundComponent>();
+
+
 	render->SetTexture(GameEngine::eTexture::BG);
 	render->SetZLevel(0);
 	bgEntity->SetPos(sf::Vector2f(250.f, 250.f));
@@ -178,7 +184,6 @@ void GameBoard::CreateBackGround()
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(bgEntity);
 
 	m_backGround = bgEntity;
-
 	//create the holes
 	
 	for (int i = 0; i < N_ROW; i++) {
@@ -213,3 +218,4 @@ void GameBoard::UpdateBackGround()
 
 	m_backGround->SetPos(m_player->GetPos());
 }
+

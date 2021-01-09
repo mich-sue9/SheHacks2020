@@ -14,6 +14,7 @@ namespace Game
 		virtual void OnAddToWorld() override;
 
 		void RequestSound(bool upSound);
+		void RequestClickSound();
 
 	private:		
 		float m_timeSinceLastUpSound;
@@ -21,6 +22,7 @@ namespace Game
 
 		GameEngine::SoundManager::SoundId m_upSoundId;
 		GameEngine::SoundManager::SoundId m_downSoundId;
+		GameEngine::SoundManager::SoundId m_clickSoundId;
 	};
 }
 

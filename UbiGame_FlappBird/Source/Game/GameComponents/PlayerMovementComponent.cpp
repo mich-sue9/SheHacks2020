@@ -72,6 +72,14 @@ void PlayerMovementComponent::Update()
 			m_playerSoundComponent->RequestSound(false);
 		}
 	}
+	// detects it here, and pays in sound component. 
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (m_playerSoundComponent)
+		{
+			m_playerSoundComponent->RequestClickSound();
+		}
+	}
 
 	GetEntity()->SetPos(GetEntity()->GetPos() + wantedVel);
 

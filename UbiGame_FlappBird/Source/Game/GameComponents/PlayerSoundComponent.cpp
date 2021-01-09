@@ -22,6 +22,8 @@ void PlayerSoundComponent::OnAddToWorld()
 	{
 		m_upSoundId   = soundComponent->LoadSoundFromFile("Resources/snd/thunder.wav");
 		m_downSoundId = soundComponent->LoadSoundFromFile("Resources/snd/glassbreak.wav");
+		m_clickSoundId = soundComponent->LoadSoundFromFile("Resources/snd/glassbreak.wav");
+
 	}
 }
 
@@ -35,6 +37,12 @@ void PlayerSoundComponent::Update()
 }
 
 
+void PlayerSoundComponent::RequestClickSound() {
+	if (GameEngine::SoundComponent* const soundComponent = GetEntity()->GetComponent<GameEngine::SoundComponent>())
+	{
+		soundComponent->PlaySound(m_clickSoundId);
+	}
+}
 void PlayerSoundComponent::RequestSound(bool upSound)
 {
 	static bool enablePlayerSounds = false;	
