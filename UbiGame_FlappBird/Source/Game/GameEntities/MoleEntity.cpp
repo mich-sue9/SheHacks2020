@@ -10,7 +10,7 @@ MoleEntity::MoleEntity()
 {
 	m_renderComponent = AddComponent<GameEngine::SpriteRenderComponent>();
 	m_renderComponent->SetFillColor(sf::Color::Red);
-	m_renderComponent->SetTexture(GameEngine::eTexture::Tileset);
+	m_renderComponent->SetTexture(GameEngine::eTexture::BG2);
 	m_renderComponent->SetZLevel(2);
 	m_renderComponent->SetTileIndex(0, 0);
 

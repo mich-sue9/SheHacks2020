@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <time.h>       /* time */
+
 #include "GameBoard.h"
 
 #include "GameEngine/GameEngineMain.h"
@@ -9,6 +12,7 @@
 #include "Game/GameEntities/PlayerEntity.h"
 #include "Game/GameEntities/ObstacleEntity.h"
 #include "Game/GameEntities/HoleEntity.h"
+#include "Game/GameEntities/MoleEntity.h"
 
 using namespace Game;
 
@@ -18,7 +22,7 @@ static const int N_COL = 3;
 static const float DISTANCE_BETWEEN_HOLES = 160.f; // pixel
 static const sf::Vector2f TOP_LEFT_CORNER(100.f, 90.f);
 static const sf::Vector2f HOLE_SIZE(60.f, 60.f);
-
+static const sf::Vector2f MOLE_SIZE(60.f, 60.f);
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
@@ -33,6 +37,7 @@ GameBoard::GameBoard()
 	m_player->SetSize(sf::Vector2f(40.f, 40.f));
 
 	CreateBackGround();
+	CreateMole();
 
 
 	//Debug
@@ -54,17 +59,35 @@ void GameBoard::Update()
 	float dt = GameEngine::GameEngineMain::GetInstance()->GetTimeDelta();
 	if (!m_isGameOver)
 	{
-		//m_lastObstacleSpawnTimer -= dt;
-		//if (m_lastObstacleSpawnTimer <= 0.f)
-		//{
-			//SpawnNewRandomObstacles();
-			//SpawnNewRandomTiledObstacles();
-		//}
+		m_lastObstacleSpawnTimer -= dt;
+		if (m_lastObstacleSpawnTimer <= 0.f)
+		{
+			// SpawnNewRandomObstacles();
+			// SpawnNewRandomTiledObstacles();
+			UpdateMole();
+		}
 
-		//UpdateObstacles(dt);
+		// UpdateObstacles(dt);
+		// int random = RandomFloatRange(1, 3);//
+
+		int value = (int)dt % 10;
+
 		UpdateBackGround();
 		UpdatePlayerDying();
+
 	}
+}
+
+void GameBoard::UpdateMole() {
+		/* initialize random seed: */
+	  srand (time(NULL));
+
+	  /* generate secret number from 0 1 2 */
+	  int row = rand() % N_ROW;
+	  int col = rand() % N_COL;
+
+		m_mole->SetPos(sf::Vector2f(TOP_LEFT_CORNER.x + row * DISTANCE_BETWEEN_HOLES,
+			TOP_LEFT_CORNER.y + col * DISTANCE_BETWEEN_HOLES-20));
 }
 
 
@@ -185,7 +208,7 @@ void GameBoard::CreateBackGround()
 
 	m_backGround = bgEntity;
 	//create the holes
-	
+
 	for (int i = 0; i < N_ROW; i++) {
 		for (int j = 0; j < N_COL; j++) {
 			GameEngine::Entity* hole = new GameEngine::Entity();
@@ -207,6 +230,24 @@ void GameBoard::CreateBackGround()
 	}
 }
 
+void GameBoard::CreateMole() {
+
+	MoleEntity* mole = new MoleEntity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(mole);
+
+	/* initialize random seed: */
+  srand (time(NULL));
+
+  /* generate secret number from 0 1 2 */
+  int row = rand() % N_ROW;
+  int col = rand() % N_COL;
+
+	mole->SetPos(sf::Vector2f(TOP_LEFT_CORNER.x + row * DISTANCE_BETWEEN_HOLES,
+		TOP_LEFT_CORNER.y + col * DISTANCE_BETWEEN_HOLES-20));
+	mole->SetSize(sf::Vector2f(MOLE_SIZE.x, MOLE_SIZE.y));
+
+	m_mole = mole;
+}
 
 void GameBoard::UpdateBackGround()
 {
