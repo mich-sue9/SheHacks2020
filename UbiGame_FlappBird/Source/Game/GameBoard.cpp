@@ -25,15 +25,21 @@ static const sf::Vector2f TOP_LEFT_CORNER(100.f, 90.f);
 static const sf::Vector2f HOLE_SIZE(60.f, 60.f);
 static const sf::Vector2f MOLE_SIZE(60.f, 60.f);
 
+GameEngine::TextComponent* CountDownrender;
+sf::Time m_countDownTimer;
+sf::Clock m_clock;
+bool isGameOver;
+
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, m_backGround(nullptr)
 	, m_CountDown(nullptr)
 	, m_ScoreBoard(nullptr)
 	, m_lastObstacleSpawnTimer(0.f)
-	, m_isGameOver(false)
 {
 	m_player = new PlayerEntity();
+	m_clock.restart();
+	isGameOver = false;
 
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 	m_player->SetPos(sf::Vector2f(50.f, 50.f));
@@ -63,25 +69,16 @@ GameBoard::~GameBoard()
 void GameBoard::Update()
 {
 	float dt = GameEngine::GameEngineMain::GetInstance()->GetTimeDelta();
-	if (!m_isGameOver)
+	
+	if (!isGameOver)
 	{
-		m_lastObstacleSpawnTimer -= dt;
-		if (m_lastObstacleSpawnTimer <= 0.f)
-		{
-			// SpawnNewRandomObstacles();
-			// SpawnNewRandomTiledObstacles();
-			UpdateMole();
-		}
-
-		// UpdateObstacles(dt);
-		// int random = RandomFloatRange(1, 3);//
-
-		int value = (int)dt % 10;
-
+		UpdateCountDown(dt);
+		UpdateMole();
 		UpdateBackGround();
 		UpdatePlayerDying();
-	
-
+	}
+	else {
+		//Remove everything on the board
 	}
 }
 
@@ -270,11 +267,15 @@ void GameBoard::UpdateBackGround()
 void Game::GameBoard::CreateCountDown()
 {
 	GameEngine::Entity* CountDown = new GameEngine::Entity();
-	GameEngine::TextComponent* render = CountDown->AddComponent<GameEngine::TextComponent>();
-	int time = 0;
-	render->SetFont("Resources/fonts/arial.ttf");
-	render->SetText("Time: "+time, 20, sf::Color::Black);
-	render->SetZLevel(1);
+	CountDownrender = CountDown->AddComponent<GameEngine::TextComponent>();
+	//get time
+	m_countDownTimer = m_clock.getElapsedTime();
+	int time = (int)m_countDownTimer.asSeconds();
+	
+	//set text
+	CountDownrender->SetFont("Resources/fonts/arial.ttf");
+	CountDownrender->SetText("Time: "+ std::to_string(time), 20, sf::Color::Black);
+	CountDownrender->SetZLevel(1);
 	CountDown->SetPos(sf::Vector2f(10.f, 10.f));
 	CountDown->SetSize(sf::Vector2f(100.f, 100.f));
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(CountDown);
@@ -282,8 +283,14 @@ void Game::GameBoard::CreateCountDown()
 	m_CountDown = CountDown;
 }
 
-void Game::GameBoard::UpdateCountDown()
+void Game::GameBoard::UpdateCountDown(float dt)
 {
+	m_countDownTimer = m_clock.getElapsedTime();
+	int time = (int)m_countDownTimer.asSeconds()-3;
+	CountDownrender->SetText("Time: " + std::to_string(time), 20, sf::Color::Black);
+	if (time >= 60) {
+		isGameOver = true;
+	}
 
 }
 
