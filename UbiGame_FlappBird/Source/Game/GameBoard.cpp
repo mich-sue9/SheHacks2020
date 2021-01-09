@@ -40,6 +40,7 @@ GameBoard::GameBoard()
 	m_player->SetSize(sf::Vector2f(40.f, 40.f));
 
 	CreateCountDown();
+	CreateScoreBoard();
 	CreateBackGround();
 	CreateMole();
 
@@ -79,6 +80,7 @@ void GameBoard::Update()
 
 		UpdateBackGround();
 		UpdatePlayerDying();
+	
 
 	}
 }
@@ -269,9 +271,9 @@ void Game::GameBoard::CreateCountDown()
 {
 	GameEngine::Entity* CountDown = new GameEngine::Entity();
 	GameEngine::TextComponent* render = CountDown->AddComponent<GameEngine::TextComponent>();
-
+	int time = 0;
 	render->SetFont("Resources/fonts/arial.ttf");
-	render->SetText("Score", 20, sf::Color::Black);
+	render->SetText("Time: "+time, 20, sf::Color::Black);
 	render->SetZLevel(1);
 	CountDown->SetPos(sf::Vector2f(10.f, 10.f));
 	CountDown->SetSize(sf::Vector2f(100.f, 100.f));
@@ -287,6 +289,17 @@ void Game::GameBoard::UpdateCountDown()
 
 void Game::GameBoard::CreateScoreBoard()
 {
+	GameEngine::Entity* ScoreBoard = new GameEngine::Entity();
+	GameEngine::TextComponent* render = ScoreBoard->AddComponent<GameEngine::TextComponent>();
+	int time = 0;
+	render->SetFont("Resources/fonts/arial.ttf");
+	render->SetText("Score: " + time, 20, sf::Color::Black);
+	render->SetZLevel(1);
+	ScoreBoard->SetPos(sf::Vector2f(300.f, 10.f));
+	ScoreBoard->SetSize(sf::Vector2f(100.f, 100.f));
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(ScoreBoard);
+
+	m_ScoreBoard = ScoreBoard;
 }
 
 void Game::GameBoard::UpdateScoreBoard()
