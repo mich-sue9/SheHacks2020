@@ -44,14 +44,14 @@ void GameBoard::Update()
 	float dt = GameEngine::GameEngineMain::GetInstance()->GetTimeDelta();
 	if (!m_isGameOver)
 	{
-		m_lastObstacleSpawnTimer -= dt;
-		if (m_lastObstacleSpawnTimer <= 0.f)
-		{
+		//m_lastObstacleSpawnTimer -= dt;
+		//if (m_lastObstacleSpawnTimer <= 0.f)
+		//{
 			//SpawnNewRandomObstacles();
-			SpawnNewRandomTiledObstacles();
-		}
+			//SpawnNewRandomTiledObstacles();
+		//}
 
-		UpdateObstacles(dt);
+		//UpdateObstacles(dt);
 		UpdateBackGround();
 		UpdatePlayerDying();
 	}
