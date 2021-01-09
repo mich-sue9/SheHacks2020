@@ -27,7 +27,7 @@ namespace GameEngine
 		case eTexture::Player:    return "doge.png";
 		case eTexture::Tileset:   return "tileset.png";
 		case eTexture::BG:		  return "bg.png";
-		case eTexture::BG2:		  return "bg2.png";
+		case eTexture::BG2:		  return "grumpy4.png";
 		case eTexture::Particles: return "particles.png";
 		default:       return "UnknownTexType";
 		}
