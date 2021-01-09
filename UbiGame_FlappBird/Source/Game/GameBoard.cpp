@@ -13,6 +13,7 @@
 #include "Game/GameEntities/ObstacleEntity.h"
 #include "Game/GameEntities/HoleEntity.h"
 #include "Game/GameEntities/MoleEntity.h"
+#include <GameEngine/EntitySystem/Components/TextComponent.h>
 
 using namespace Game;
 
@@ -27,6 +28,8 @@ static const sf::Vector2f MOLE_SIZE(60.f, 60.f);
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, m_backGround(nullptr)
+	, m_CountDown(nullptr)
+	, m_ScoreBoard(nullptr)
 	, m_lastObstacleSpawnTimer(0.f)
 	, m_isGameOver(false)
 {
@@ -36,8 +39,10 @@ GameBoard::GameBoard()
 	m_player->SetPos(sf::Vector2f(50.f, 50.f));
 	m_player->SetSize(sf::Vector2f(40.f, 40.f));
 
+	CreateCountDown();
 	CreateBackGround();
 	CreateMole();
+
 
 
 	//Debug
@@ -258,5 +263,33 @@ void GameBoard::UpdateBackGround()
 		return;
 
 	m_backGround->SetPos(m_player->GetPos());
+}
+
+void Game::GameBoard::CreateCountDown()
+{
+	GameEngine::Entity* CountDown = new GameEngine::Entity();
+	GameEngine::TextComponent* render = CountDown->AddComponent<GameEngine::TextComponent>();
+
+	render->SetFont("Resources/fonts/arial.ttf");
+	render->SetText("Score", 20, sf::Color::Black);
+	render->SetZLevel(1);
+	CountDown->SetPos(sf::Vector2f(10.f, 10.f));
+	CountDown->SetSize(sf::Vector2f(100.f, 100.f));
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(CountDown);
+
+	m_CountDown = CountDown;
+}
+
+void Game::GameBoard::UpdateCountDown()
+{
+
+}
+
+void Game::GameBoard::CreateScoreBoard()
+{
+}
+
+void Game::GameBoard::UpdateScoreBoard()
+{
 }
 
