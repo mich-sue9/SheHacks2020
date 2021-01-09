@@ -4,6 +4,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 
+
 namespace Game
 {
 	//Used for storing and controling all game related entities
@@ -40,7 +41,7 @@ namespace Game
 		void UpdateBackGround();
 
 		void CreateCountDown();
-		void UpdateCountDown();
+		void UpdateCountDown(float dt);
 
 		void CreateScoreBoard();
 		void UpdateScoreBoard();
@@ -57,6 +58,7 @@ namespace Game
 		GameEngine::Entity* m_mole; // 1 mole
 
 		float m_lastObstacleSpawnTimer;
+	
 		bool  m_isGameOver;
 	};
 }
