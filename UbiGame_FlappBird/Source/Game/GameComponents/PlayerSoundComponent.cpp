@@ -22,7 +22,7 @@ void PlayerSoundComponent::OnAddToWorld()
 	{
 		m_upSoundId   = soundComponent->LoadSoundFromFile("Resources/snd/thunder.wav");
 		m_downSoundId = soundComponent->LoadSoundFromFile("Resources/snd/glassbreak.wav");
-		m_clickSoundId = soundComponent->LoadSoundFromFile("Resources/snd/glassbreak.wav");
+		m_clickSoundId = soundComponent->LoadSoundFromFile("Resources/snd/smash.wav");
 
 	}
 }
