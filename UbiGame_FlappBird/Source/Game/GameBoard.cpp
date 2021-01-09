@@ -7,6 +7,7 @@
 #include "Game/GameEntities/PlayerEntity.h"
 #include "Game/GameEntities/ObstacleEntity.h"
 #include "Game/GameEntities/HoleEntity.h"
+#include "Game/GameEntities/MoleEntity.h"
 
 using namespace Game;
 
@@ -30,6 +31,7 @@ GameBoard::GameBoard()
 	m_player->SetPos(sf::Vector2f(50.f, 50.f));
 	m_player->SetSize(sf::Vector2f(40.f, 40.f));
 
+	CreateMole();
 	CreateBackGround();
 
 
@@ -59,10 +61,25 @@ void GameBoard::Update()
 			//SpawnNewRandomTiledObstacles();
 		//}
 
-		//UpdateObstacles(dt);
+		UpdateObstacles(dt);
+		int random = RandomFloatRange(1, 3);//
+
+		int value = (int)dt % 10;
+
 		UpdateBackGround();
 		UpdatePlayerDying();
+		UpdateMoles();
+
 	}
+}
+
+void GameBoard::UpdateMoles() {
+	if (m_moles.size() != 0)
+	{
+		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_moles[1]);
+		//GameEngine::GameEngineMain::GetInstance()->AddEntity(m_moles[1]);
+	}
+
 }
 
 
@@ -202,6 +219,23 @@ void GameBoard::CreateBackGround()
 	}
 }
 
+void GameBoard::CreateMole() {
+	for (int i = 0; i < N_ROW; i++) {
+		for (int j = 0; j < N_COL; j++) {
+
+			MoleEntity* mole = new MoleEntity();
+			GameEngine::GameEngineMain::GetInstance()->AddEntity(mole);
+
+			//set position
+			mole->SetPos(sf::Vector2f(TOP_LEFT_CORNER.x + i * DISTANCE_BETWEEN_HOLES,
+				TOP_LEFT_CORNER.y + j * DISTANCE_BETWEEN_HOLES-20));
+			mole->SetSize(sf::Vector2f(HOLE_SIZE.x, HOLE_SIZE.y));
+
+			m_holes.push_back(mole);
+		}
+	}
+
+}
 
 void GameBoard::UpdateBackGround()
 {

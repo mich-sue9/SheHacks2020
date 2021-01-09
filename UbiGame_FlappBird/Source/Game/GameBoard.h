@@ -17,7 +17,9 @@ namespace Game
 
 		//Temp - for nice architecture this should be within some sort of IUpdatable interface that GameEngine handles (so that not only entities can be updated)
 		void Update();
+		void UpdateMoles(float dt);
 		void UpdateObstacles(float dt);
+		void UpdateMoles();
 		void UpdatePlayerDying();
 		void SpawnNewRandomObstacles();
 		void SpawnNewRandomTiledObstacles();
@@ -32,15 +34,16 @@ namespace Game
 			return ((b - a) * ((float)rand() / RAND_MAX)) + a;
 		}
 
-
 		void CreateBackGround();
 		void UpdateBackGround();
+		void CreateMole();
 
 		PlayerEntity* m_player;
 		GameEngine::Entity* m_backGround;
 
 		std::vector<GameEngine::Entity*> m_obstacles;
 		std::vector<GameEngine::Entity*> m_holes; // 9 holes
+		std::vector<GameEngine::Entity*> m_moles; // 9 holes
 
 		float m_lastObstacleSpawnTimer;
 		bool  m_isGameOver;
