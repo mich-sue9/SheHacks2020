@@ -34,11 +34,14 @@ namespace Game
 
 		void CreateBackGround();
 		void UpdateBackGround();
+		void CreateBackGround2();
+		void UpdateBackGround2();
 
 		void CreateHoles();
 
 		PlayerEntity* m_player;
 		GameEngine::Entity* m_backGround;
+		GameEngine::Entity* m_backGround2;
 
 		std::vector<GameEngine::Entity*> m_obstacles;
 		std::vector<GameEngine::Entity*> m_holes; // 9 holes

@@ -13,6 +13,7 @@ using namespace Game;
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, m_backGround(nullptr)
+	, m_backGround2(nullptr)
 	, m_lastObstacleSpawnTimer(0.f)
 	, m_isGameOver(false)
 {
@@ -23,6 +24,7 @@ GameBoard::GameBoard()
 	m_player->SetSize(sf::Vector2f(40.f, 40.f));
 
 	CreateBackGround();
+	CreateBackGround2();
 	CreateHoles();
 
 	//Debug
@@ -53,6 +55,7 @@ void GameBoard::Update()
 
 		//UpdateObstacles(dt);
 		UpdateBackGround();
+		UpdateBackGround2();
 		UpdatePlayerDying();
 	}
 }
@@ -172,6 +175,19 @@ void GameBoard::CreateBackGround()
 	m_backGround = bgEntity;
 }
 
+void GameBoard::CreateBackGround2()
+{
+	GameEngine::Entity* bgEntity2 = new GameEngine::Entity();
+	GameEngine::SpriteRenderComponent* render = bgEntity2->AddComponent<GameEngine::SpriteRenderComponent>();
+	render->SetTexture(GameEngine::eTexture::BG2);
+	render->SetZLevel(2);
+	bgEntity2->SetPos(sf::Vector2f(250.f, 250.f));
+	bgEntity2->SetSize(sf::Vector2f(50.f, 50.f));
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(bgEntity2);
+
+	m_backGround2 = bgEntity2;
+}
+
 void GameBoard::CreateHoles() {
 	static const int N_ROW = 3;
 	static const int N_COL = 3;
@@ -203,4 +219,14 @@ void GameBoard::UpdateBackGround()
 		return;
 
 	m_backGround->SetPos(m_player->GetPos());
+}
+void GameBoard::UpdateBackGround2()
+{
+	if (!m_backGround2 || !m_player)
+		return;
+
+	if (!GameEngine::CameraManager::IsFollowCameraEnabled())
+		return;
+
+	m_backGround2->SetPos(m_player->GetPos());
 }
