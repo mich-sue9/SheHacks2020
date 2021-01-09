@@ -10,10 +10,17 @@
 
 using namespace Game;
 
+static const int N_ROW = 3;
+static const int N_COL = 3;
+
+static const float DISTANCE_BETWEEN_HOLES = 160.f; // pixel
+static const sf::Vector2f TOP_LEFT_CORNER(100.f, 90.f);
+static const sf::Vector2f HOLE_SIZE(60.f, 60.f);
+
+
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, m_backGround(nullptr)
-	, m_backGround2(nullptr)
 	, m_lastObstacleSpawnTimer(0.f)
 	, m_isGameOver(false)
 {
@@ -24,8 +31,7 @@ GameBoard::GameBoard()
 	m_player->SetSize(sf::Vector2f(40.f, 40.f));
 
 	CreateBackGround();
-	CreateBackGround2();
-	CreateHoles();
+
 
 	//Debug
 	for (int a = 0; a < 3; ++a)
@@ -55,7 +61,6 @@ void GameBoard::Update()
 
 		//UpdateObstacles(dt);
 		UpdateBackGround();
-		UpdateBackGround2();
 		UpdatePlayerDying();
 	}
 }
@@ -173,42 +178,30 @@ void GameBoard::CreateBackGround()
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(bgEntity);
 
 	m_backGround = bgEntity;
-}
 
-void GameBoard::CreateBackGround2()
-{
-	GameEngine::Entity* bgEntity2 = new GameEngine::Entity();
-	GameEngine::SpriteRenderComponent* render = bgEntity2->AddComponent<GameEngine::SpriteRenderComponent>();
-	render->SetTexture(GameEngine::eTexture::BG2);
-	render->SetZLevel(2);
-	bgEntity2->SetPos(sf::Vector2f(250.f, 250.f));
-	bgEntity2->SetSize(sf::Vector2f(50.f, 50.f));
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(bgEntity2);
+	//create the holes
+	
+	for (int i = 0; i < N_ROW; i++) {
+		for (int j = 0; j < N_COL; j++) {
+			GameEngine::Entity* hole = new GameEngine::Entity();
+			GameEngine::SpriteRenderComponent* render = hole->AddComponent<GameEngine::SpriteRenderComponent>();
 
-	m_backGround2 = bgEntity2;
-}
-
-void GameBoard::CreateHoles() {
-	static const int N_ROW = 3;
-	static const int N_COL = 3;
-
-	static const float DISTANCE_BETWEEN_HOLES = 50.f; // pixel
-	static const sf::Vector2f TOP_LEFT_CORNER(5.f, 5.f);
-	static const sf::Vector2f HOLE_SIZE(20.f, 20.f);
-
-	for (int i = 0; i < N_ROW; i++){
-		for (int j = 0; j < N_COL; j++){
-			HoleEntity* hole = new HoleEntity();
-
-			GameEngine::GameEngineMain::GetInstance()->AddEntity(hole);
+			//set position
 			hole->SetPos(sf::Vector2f(TOP_LEFT_CORNER.x + i * DISTANCE_BETWEEN_HOLES,
-															  TOP_LEFT_CORNER.y + j * DISTANCE_BETWEEN_HOLES));
+				TOP_LEFT_CORNER.y + j * DISTANCE_BETWEEN_HOLES));
 			hole->SetSize(sf::Vector2f(HOLE_SIZE.x, HOLE_SIZE.y));
+
+			//set render texture
+			render->SetFillColor(sf::Color::Red);
+			render->SetTexture(GameEngine::eTexture::Tileset);
+			render->SetZLevel(1);
+			GameEngine::GameEngineMain::GetInstance()->AddEntity(hole);
 
 			m_holes.push_back(hole);
 		}
 	}
 }
+
 
 void GameBoard::UpdateBackGround()
 {
@@ -219,14 +212,4 @@ void GameBoard::UpdateBackGround()
 		return;
 
 	m_backGround->SetPos(m_player->GetPos());
-}
-void GameBoard::UpdateBackGround2()
-{
-	if (!m_backGround2 || !m_player)
-		return;
-
-	if (!GameEngine::CameraManager::IsFollowCameraEnabled())
-		return;
-
-	m_backGround2->SetPos(m_player->GetPos());
 }
