@@ -49,150 +49,24 @@ GameBoard::GameBoard()
 	CreateScoreBoard();
 	CreateBackGround();
 	CreateMole();
-
-
-
-	//Debug
-	for (int a = 0; a < 3; ++a)
-	{
-		//SpawnNewRandomObstacles();
-	}
 }
 
 
-GameBoard::~GameBoard()
-{
-
-}
+GameBoard::~GameBoard(){}
 
 
 void GameBoard::Update()
 {
-	float dt = GameEngine::GameEngineMain::GetInstance()->GetTimeDelta();
 	
 	if (!isGameOver)
 	{
-		UpdateCountDown(dt);
+		UpdateCountDown();
 		UpdateMole();
 		UpdateBackGround();
-		UpdatePlayerDying();
 	}
 	else {
 		//Remove everything on the board
 	}
-}
-
-void GameBoard::UpdateMole() {
-		/* initialize random seed: */
-	  srand (time(NULL));
-
-	  /* generate secret number from 0 1 2 */
-	  int row = rand() % N_ROW;
-	  int col = rand() % N_COL;
-
-		m_mole->SetPos(sf::Vector2f(TOP_LEFT_CORNER.x + row * DISTANCE_BETWEEN_HOLES,
-			TOP_LEFT_CORNER.y + col * DISTANCE_BETWEEN_HOLES-20));
-}
-
-
-void GameBoard::UpdateObstacles(float dt)
-{
-	static float obstacleSpeed = 100.f;
-
-	for (std::vector<GameEngine::Entity*>::iterator it = m_obstacles.begin(); it != m_obstacles.end();)
-	{
-		GameEngine::Entity* obstacle = (*it);
-		sf::Vector2f currPos = obstacle->GetPos();
-		currPos.x -= obstacleSpeed * dt;
-		obstacle->SetPos(currPos);
-		//If we are to remove ourselves
-		if (currPos.x < -50.f)
-		{
-			GameEngine::GameEngineMain::GetInstance()->RemoveEntity(obstacle);
-			it = m_obstacles.erase(it);
-		}
-		else
-		{
-			it++;
-		}
-	}
-}
-
-
-void GameBoard::UpdatePlayerDying()
-{
-	bool noGameOver = GameEngine::CameraManager::IsFollowCameraEnabled();
-
-	if (noGameOver)
-		return;
-
-	static float xToPlayerDie = 0.f;
-	if (m_player->GetPos().x < xToPlayerDie)
-	{
-		m_isGameOver = true;
-	}
-}
-
-
-void GameBoard::SpawnNewRandomObstacles()
-{
-	static float minNextSpawnTime = 0.3f;
-	static float maxNextSpawnTime = 0.7f;
-
-	static float minObstacleXPos = 50.f;
-	static float maxObstacleXPos = 450.f;
-	static float minObstacleYPos = 20.f;
-	static float maxObstacleYPos = 450.f;
-
-	static float minObstacleHeight = 50.f;
-	static float maxObstacleHeight = 170.f;
-	static float minObstacleWidth = 20.f;
-	static float maxObstacleWidth = 40.f;
-
-	sf::Vector2f pos = sf::Vector2f(RandomFloatRange(minObstacleXPos, maxObstacleXPos), RandomFloatRange(minObstacleYPos, maxObstacleYPos));
-	sf::Vector2f size = sf::Vector2f(RandomFloatRange(minObstacleWidth, maxObstacleWidth), RandomFloatRange(minObstacleHeight, maxObstacleHeight));
-
-	SpawnNewObstacle(pos, size);
-
-	m_lastObstacleSpawnTimer = RandomFloatRange(minNextSpawnTime, maxNextSpawnTime);
-}
-
-
-void GameBoard::SpawnNewRandomTiledObstacles()
-{
-	static int minObstacleCount = 2;
-	static int maxObstacleCount = 7;
-
-	static float minNextSpawnTime = 0.3f;
-	static float maxNextSpawnTime = 0.7f;
-
-	static float minObstacleXPos = 350.f;
-	static float maxObstacleXPos = 450.f;
-	static float minObstacleYPos = 20.f;
-	static float maxObstacleYPos = 450.f;
-
-	sf::Vector2f pos = sf::Vector2f(RandomFloatRange(minObstacleXPos, maxObstacleXPos), RandomFloatRange(minObstacleYPos, maxObstacleYPos));
-	sf::Vector2f size = sf::Vector2f(32.f, 32.f);
-
-	int obstacleCount = (int)RandomFloatRange((float)minObstacleCount, (float)maxObstacleCount);
-	for (int a = 0; a < obstacleCount; ++a)
-	{
-		SpawnNewObstacle(pos, size);
-		pos.y += size.y;
-	}
-
-	m_lastObstacleSpawnTimer = RandomFloatRange(minNextSpawnTime, maxNextSpawnTime);
-}
-
-
-void GameBoard::SpawnNewObstacle(const sf::Vector2f& pos, const sf::Vector2f& size)
-{
-	ObstacleEntity* obstacle = new ObstacleEntity();
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(obstacle);
-	obstacle->SetPos(pos);
-	obstacle->SetSize(sf::Vector2f(size.x, size.y));
-
-	m_obstacles.push_back(obstacle);
 }
 
 
@@ -253,6 +127,18 @@ void GameBoard::CreateMole() {
 	m_mole = mole;
 }
 
+void GameBoard::UpdateMole() {
+	/* initialize random seed: */
+	srand(time(NULL));
+
+	/* generate secret number from 0 1 2 */
+	int row = rand() % N_ROW;
+	int col = rand() % N_COL;
+
+	m_mole->SetPos(sf::Vector2f(TOP_LEFT_CORNER.x + row * DISTANCE_BETWEEN_HOLES,
+		TOP_LEFT_CORNER.y + col * DISTANCE_BETWEEN_HOLES - 20));
+}
+
 void GameBoard::UpdateBackGround()
 {
 	if (!m_backGround || !m_player)
@@ -283,7 +169,7 @@ void Game::GameBoard::CreateCountDown()
 	m_CountDown = CountDown;
 }
 
-void Game::GameBoard::UpdateCountDown(float dt)
+void Game::GameBoard::UpdateCountDown()
 {
 	m_countDownTimer = m_clock.getElapsedTime();
 	int time = (int)m_countDownTimer.asSeconds()-3;
@@ -291,16 +177,15 @@ void Game::GameBoard::UpdateCountDown(float dt)
 	if (time >= 60) {
 		isGameOver = true;
 	}
-
 }
 
 void Game::GameBoard::CreateScoreBoard()
 {
 	GameEngine::Entity* ScoreBoard = new GameEngine::Entity();
 	GameEngine::TextComponent* render = ScoreBoard->AddComponent<GameEngine::TextComponent>();
-	int time = 0;
+	int score = 0;
 	render->SetFont("Resources/fonts/arial.ttf");
-	render->SetText("Score: " + time, 20, sf::Color::Black);
+	render->SetText("Score: " + std::to_string(score), 20, sf::Color::Black);
 	render->SetZLevel(1);
 	ScoreBoard->SetPos(sf::Vector2f(300.f, 10.f));
 	ScoreBoard->SetSize(sf::Vector2f(100.f, 100.f));

@@ -20,13 +20,7 @@ namespace Game
 		void Update();
 
 		void UpdateMole();
-		void UpdateObstacles(float dt);
 
-		void UpdatePlayerDying();
-		void SpawnNewRandomObstacles();
-		void SpawnNewRandomTiledObstacles();
-
-		void SpawnNewObstacle(const sf::Vector2f& pos, const sf::Vector2f& size);
 
 		bool IsGameOver() const { return m_isGameOver; }
 
@@ -41,7 +35,7 @@ namespace Game
 		void UpdateBackGround();
 
 		void CreateCountDown();
-		void UpdateCountDown(float dt);
+		void UpdateCountDown();
 
 		void CreateScoreBoard();
 		void UpdateScoreBoard();
