@@ -66,7 +66,6 @@ void CollidablePhysicsComponent::Update()
 
 			GetEntity()->SetPos(pos);
 			hitCount++;
-			std::cout << "hitCount="<< hitCount <<std::endl;
 		}
 	}
 }
