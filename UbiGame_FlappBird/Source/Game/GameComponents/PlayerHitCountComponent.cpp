@@ -58,11 +58,8 @@ void PlayerHitCountComponent::Update()
 		AABBRect colideBox = colComponent->GetWorldAABB();
 		if (myBox.intersects(colideBox, intersection))
 		{
-			if (PlayerHitCountComponent* component =
-										GetEntity()->GetComponent<PlayerHitCountComponent>()){
-				hitCount++;
-				// std::cout << "Hit Count = " << hitCount << std::endl;
-			}
+			hitCount++;
+			std::cout << "Hit Count = " << hitCount << std::endl;
 		}
 	}
 }

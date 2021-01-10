@@ -4,12 +4,13 @@
 #include "GameEngine/EntitySystem/Entity.h"
 
 #include <vector>
+#include <iostream>
 
 using namespace GameEngine;
 
 CollidablePhysicsComponent::CollidablePhysicsComponent()
 {
-
+	hitCount = 0;
 }
 
 
@@ -64,6 +65,12 @@ void CollidablePhysicsComponent::Update()
 			}
 
 			GetEntity()->SetPos(pos);
+			hitCount++;
+			std::cout << "hitCount="<< hitCount <<std::endl;
 		}
 	}
+}
+
+int CollidablePhysicsComponent::getHitCount() {
+	return hitCount;
 }

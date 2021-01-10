@@ -2,7 +2,7 @@
 
 #include "Game/GameComponents/PlayerSoundComponent.h"
 #include "Game/GameComponents/PlayerCameraComponent.h"
-#include "Game/GameComponents/PlayerHitCountComponent.h"
+// #include "Game/GameComponents/PlayerHitCountComponent.h"
 
 #include "GameEngine/EntitySystem/Components/CollidablePhysicsComponent.h"
 #include "GameEngine/EntitySystem/Components/ParticleEmitterComponent.h"
@@ -16,7 +16,7 @@ PlayerEntity::PlayerEntity()
 	//Movement
 	m_playerMovementComponent = AddComponent<PlayerMovementComponent>();
 	//hitCount
-	m_playerHitCountComponent = AddComponent<PlayerHitCountComponent>();
+	// m_playerHitCountComponent = AddComponent<PlayerHitCountComponent>();
 
 	//Render
 	m_renderComponent = AddComponent<GameEngine::SpriteRenderComponent>();
@@ -27,7 +27,7 @@ PlayerEntity::PlayerEntity()
 	m_animComponent = AddComponent<GameEngine::AnimationComponent>();
 
 	//Collisions
-	AddComponent<GameEngine::CollidablePhysicsComponent>();
+	m_playerHitCountComponent=AddComponent<GameEngine::CollidablePhysicsComponent>();
 
 	//Particles
 	GameEngine::ParticleEmitterComponent* emitterComponent = AddComponent<GameEngine::ParticleEmitterComponent>();
@@ -69,8 +69,5 @@ void PlayerEntity::OnRemoveFromWorld()
 }
 
 int PlayerEntity::getHitCount() {
-	if (PlayerHitCountComponent* component = GetComponent<PlayerHitCountComponent>()){
-		return component->getHitCount();
-	}
-	return 0;
+	return m_playerHitCountComponent->getHitCount();
 }

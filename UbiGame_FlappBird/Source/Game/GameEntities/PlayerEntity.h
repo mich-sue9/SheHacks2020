@@ -2,8 +2,9 @@
 #include "GameEngine/EntitySystem/Entity.h"
 #include "GameEngine/EntitySystem/Components/AnimationComponent.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
+#include "GameEngine/EntitySystem/Components/CollidablePhysicsComponent.h"
 #include "Game/GameComponents/PlayerMovementComponent.h"
-#include "Game/GameComponents/PlayerHitCountComponent.h"
+// #include "Game/GameComponents/PlayerHitCountComponent.h"
 
 namespace Game
 {
@@ -22,7 +23,7 @@ namespace Game
 	protected:
 		GameEngine::SpriteRenderComponent* m_renderComponent;
 		PlayerMovementComponent*	 m_playerMovementComponent;
-		PlayerHitCountComponent*	 m_playerHitCountComponent;
+		GameEngine::CollidablePhysicsComponent*	 m_playerHitCountComponent;
 		GameEngine::AnimationComponent* m_animComponent;
 	};
 }
