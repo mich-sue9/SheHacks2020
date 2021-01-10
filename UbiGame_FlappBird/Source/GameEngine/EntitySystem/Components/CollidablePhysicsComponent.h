@@ -3,7 +3,7 @@
 
 namespace GameEngine
 {
-	//This one allows for movement and obstacle detection, 
+	//This one allows for movement and obstacle detection,
 	class CollidablePhysicsComponent : public CollidableComponent
 	{
 	public:
@@ -14,6 +14,10 @@ namespace GameEngine
 		virtual void OnRemoveFromWorld() override;
 
 		virtual void Update() override;
+
+		int getHitCount();
+
+	protected:
+		int hitCount;
 	};
 }
-

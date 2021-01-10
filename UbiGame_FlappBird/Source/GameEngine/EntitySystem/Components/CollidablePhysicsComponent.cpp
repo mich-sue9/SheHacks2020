@@ -4,12 +4,13 @@
 #include "GameEngine/EntitySystem/Entity.h"
 
 #include <vector>
+#include <iostream>
 
 using namespace GameEngine;
 
 CollidablePhysicsComponent::CollidablePhysicsComponent()
 {
-
+	hitCount = 0;
 }
 
 
@@ -51,19 +52,25 @@ void CollidablePhysicsComponent::Update()
 			if (intersection.width < intersection.height)
 			{
 				if (myBox.left < colideBox.left)
-					pos.x -= intersection.width;
+					pos.x -= (intersection.width+25);
 				else
-					pos.x += intersection.width;
+					pos.x += (intersection.width+25);
 			}
 			else
 			{
 				if (myBox.top < colideBox.top)
-					pos.y -= intersection.height;
+					pos.y -= (intersection.height+25);
 				else
-					pos.y += intersection.height;
+					pos.y += (intersection.height+25);
 			}
 
 			GetEntity()->SetPos(pos);
+			hitCount++;
+			std::cout << "hitCount="<< hitCount <<std::endl;
 		}
 	}
+}
+
+int CollidablePhysicsComponent::getHitCount() {
+	return hitCount;
 }
