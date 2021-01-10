@@ -2,6 +2,7 @@
 
 #include "Game/GameComponents/PlayerSoundComponent.h"
 #include "Game/GameComponents/PlayerCameraComponent.h"
+#include "Game/GameComponents/PlayerHitCountComponent.h"
 
 #include "GameEngine/EntitySystem/Components/CollidablePhysicsComponent.h"
 #include "GameEngine/EntitySystem/Components/ParticleEmitterComponent.h"
@@ -14,18 +15,20 @@ PlayerEntity::PlayerEntity()
 {
 	//Movement
 	m_playerMovementComponent = AddComponent<PlayerMovementComponent>();
+	//hitCount
+	m_playerHitCountComponent = AddComponent<PlayerHitCountComponent>();
 
-	//Render 
-	m_renderComponent = AddComponent<GameEngine::SpriteRenderComponent>();	
+	//Render
+	m_renderComponent = AddComponent<GameEngine::SpriteRenderComponent>();
 	m_renderComponent->SetTexture(GameEngine::eTexture::Player);
 	m_renderComponent->SetZLevel(2);
 
 	//Animation
 	m_animComponent = AddComponent<GameEngine::AnimationComponent>();
-		
+
 	//Collisions
 	AddComponent<GameEngine::CollidablePhysicsComponent>();
-	
+
 	//Particles
 	GameEngine::ParticleEmitterComponent* emitterComponent = AddComponent<GameEngine::ParticleEmitterComponent>();
 	GameEngine::SParticleDefinition particleDef = GameEngine::SParticleDefinition(GameEngine::eTexture::Particles, 1, sf::Vector2f(32.f, 32.f), GameEngine::EAnimationId::Smoke, 1.f);
@@ -35,14 +38,14 @@ PlayerEntity::PlayerEntity()
 	//Sound
 	GameEngine::SoundComponent* const soundComponent = AddComponent<GameEngine::SoundComponent>();
 	soundComponent->SetNumSimultaneousSounds(2); // Hard coded 5 simultaneous sounds for the player
-												 
+
 	AddComponent<PlayerSoundComponent>();
 
 	//Camera control
 	AddComponent<PlayerCameraComponent>();
 }
 
- 
+
 PlayerEntity::~PlayerEntity()
 {
 
@@ -63,4 +66,11 @@ void PlayerEntity::OnAddToWorld()
 void PlayerEntity::OnRemoveFromWorld()
 {
 	Entity::OnRemoveFromWorld();
+}
+
+int PlayerEntity::getHitCount() {
+	if (PlayerHitCountComponent* component = GetComponent<PlayerHitCountComponent>()){
+		return component->getHitCount();
+	}
+	return 0;
 }
