@@ -2,12 +2,14 @@
 
 ## Theme: 60 Second game 
 
-## How to Run:
-### Windows
+
+## How to Play
+### First Run the Program
+#### Windows
 
 Each project folder will contain a UbiGame.sln file that can be opened with Visual Studio.
 
-### The MacOS version is based on a Makefile.
+#### The MacOS version is based on a Makefile.
 
 The process is the following:
 
@@ -15,7 +17,6 @@ The process is the following:
 - run make to build
 - run ./output to run the game
 
-## How to Play
 Press up/down/left/right on keyboard to move 'Doge' around the screen. Accumulate as many points as you can before time reaches 60 seconds. 
 You can accumulate points by 'annoying' the grumpy cat that appears at different locations on the screen. 'Annoy' the grumpy cat by bringing 'Doge' to touch it. 
 Good luck!
