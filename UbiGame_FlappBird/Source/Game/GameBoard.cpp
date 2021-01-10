@@ -27,7 +27,7 @@ GameEngine::TextComponent* scoreRender;
 sf::Time m_countDownTimer;
 sf::Clock m_clock;
 
-int countDownTime = 5;
+int countDownTime = 60;
 bool isGameOver;
 bool cleanGame;
 
