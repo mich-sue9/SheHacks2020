@@ -5,7 +5,7 @@
 ## How to Run:
 ### Windows
 
-Each project folder will contain a UbiGame.sln file that can be opened with Visual Studio (Community version is free).
+Each project folder will contain a UbiGame.sln file that can be opened with Visual Studio.
 
 ### The MacOS version is based on a Makefile.
 
