@@ -1,0 +1,33 @@
+﻿  CollidablePhysicsComponent.cpp
+  GameBoard.cpp
+C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Source\Game\GameBoard.cpp(132,14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Source\Game\GameBoard.cpp(147,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  PlayerEntity.cpp
+  Generating Code...
+  UbiGame.vcxproj -> C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\bin\x64\Debug\UbiGame.exe
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\fonts\ancient-modern-tales.ttf
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\fonts\arial.ttf
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\bg.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\doge.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\Flappy.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\grumpy4.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\particles.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\player.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\img\tileset.png
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\snd\background.ogg
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\snd\glassBreak.wav
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\snd\smash.wav
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\Resources\snd\thunder.wav
+  13 File(s) copied
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\openal32.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-audio-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-audio-d-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-graphics-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-graphics-d-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-network-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-network-d-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-system-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-system-d-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-window-2.dll
+  C:\Users\wendy\Documents\000 Hackthon\SheHacks2020\UbiGame_FlappBird\..\SFML-2.5.0\bin\sfml-window-d-2.dll
+  11 File(s) copied
