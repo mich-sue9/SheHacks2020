@@ -15,7 +15,7 @@ The process is the following:
 
 - Open a console at the project folder.
 - run make to build
-- run ./output to run the game
+- run ./doge_attack to run the game
 
 ### 2. Start the Game!
 Press up/down/left/right on keyboard to move 'Doge' around the screen. Accumulate as many points as you can before time reaches 60 seconds. 
