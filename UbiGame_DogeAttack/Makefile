@@ -15,7 +15,7 @@ LDFLAGS = -L$(ROOT)../SFML-2.5.0/lib -rpath $(ROOT)../SFML-2.5.0/lib
 
 LIBS = -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-window
 
-TARGET = $(TARGET_DIR)output
+TARGET = $(TARGET_DIR)doge_attack
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDES)
