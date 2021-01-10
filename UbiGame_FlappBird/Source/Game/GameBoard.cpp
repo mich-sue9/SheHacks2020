@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <time.h>       /* time */
 
 #include "GameBoard.h"
 
@@ -10,8 +9,6 @@
 #include "GameEngine/EntitySystem/Components/BackgroundComponent.h"
 #include "GameEngine/Util/CameraManager.h"
 #include "Game/GameEntities/PlayerEntity.h"
-#include "Game/GameEntities/ObstacleEntity.h"
-#include "Game/GameEntities/HoleEntity.h"
 #include "Game/GameEntities/MoleEntity.h"
 #include <GameEngine/EntitySystem/Components/TextComponent.h>
 
@@ -28,7 +25,10 @@ static const sf::Vector2f MOLE_SIZE(60.f, 60.f);
 GameEngine::TextComponent* CountDownrender;
 sf::Time m_countDownTimer;
 sf::Clock m_clock;
+
+int countDownTime = 5;
 bool isGameOver;
+bool cleanGame;
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
@@ -40,6 +40,7 @@ GameBoard::GameBoard()
 	m_player = new PlayerEntity();
 	m_clock.restart();
 	isGameOver = false;
+	cleanGame = false;
 
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 	m_player->SetPos(sf::Vector2f(50.f, 50.f));
@@ -64,8 +65,12 @@ void GameBoard::Update()
 		UpdateMole();
 		UpdateBackGround();
 	}
-	else {
+	else if (!cleanGame){
 		//Remove everything on the board
+	
+	  //  GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_player);
+		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_mole);
+		cleanGame = true;
 	}
 }
 
@@ -172,9 +177,9 @@ void Game::GameBoard::CreateCountDown()
 void Game::GameBoard::UpdateCountDown()
 {
 	m_countDownTimer = m_clock.getElapsedTime();
-	int time = (int)m_countDownTimer.asSeconds()-3;
+	int time = (int)m_countDownTimer.asSeconds() - 2;
 	CountDownrender->SetText("Time: " + std::to_string(time), 20, sf::Color::Black);
-	if (time >= 60) {
+	if (time >= countDownTime) {
 		isGameOver = true;
 	}
 }
