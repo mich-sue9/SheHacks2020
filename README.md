@@ -1,4 +1,4 @@
-# 'Do(d)ge' Attack! 
+# 'Doge' Attack! 
 
 ## Theme: 60 Second game 
 
