@@ -109,7 +109,7 @@ SoundManager::SoundId SoundManager::CreateNewSoundResource(std::string const& fi
 
 void SoundManager::ReleaseSound(SoundManager::SoundId const soundId)
 {
-	SoundManager::SoundResource& soundResource = sm_soundResources[soundId];
+	SoundManager::SoundResource& soundResource = sm_soundResources[0];
 
 	soundResource.m_numInstances -= 1;
 	if (soundResource.m_numInstances == 0)

@@ -23,6 +23,7 @@ static const sf::Vector2f HOLE_SIZE(60.f, 60.f);
 static const sf::Vector2f MOLE_SIZE(60.f, 60.f);
 
 GameEngine::TextComponent* CountDownrender;
+GameEngine::TextComponent* scoreRender;
 sf::Time m_countDownTimer;
 sf::Clock m_clock;
 
@@ -67,9 +68,17 @@ void GameBoard::Update()
 	}
 	else if (!cleanGame){
 		//Remove everything on the board
-	
 	    GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_player);
 		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_mole);
+		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_CountDown);
+		//remove all the holes
+		for (auto& hole : m_holes) {
+			GameEngine::GameEngineMain::GetInstance()->RemoveEntity(hole);
+		}
+		
+		//change the place of the score to center of the display
+		m_ScoreBoard->SetPos(sf::Vector2f(150.f, 150.f));
+		scoreRender->SetText("Score: " + std::to_string(0), 50, sf::Color::Black);
 		cleanGame = true;
 	}
 }
@@ -187,11 +196,11 @@ void Game::GameBoard::UpdateCountDown()
 void Game::GameBoard::CreateScoreBoard()
 {
 	GameEngine::Entity* ScoreBoard = new GameEngine::Entity();
-	GameEngine::TextComponent* render = ScoreBoard->AddComponent<GameEngine::TextComponent>();
+	scoreRender = ScoreBoard->AddComponent<GameEngine::TextComponent>();
 	int score = 0;
-	render->SetFont("Resources/fonts/arial.ttf");
-	render->SetText("Score: " + std::to_string(score), 20, sf::Color::Black);
-	render->SetZLevel(1);
+	scoreRender->SetFont("Resources/fonts/arial.ttf");
+	scoreRender->SetText("Score: " + std::to_string(score), 20, sf::Color::Black);
+	scoreRender->SetZLevel(1);
 	ScoreBoard->SetPos(sf::Vector2f(300.f, 10.f));
 	ScoreBoard->SetSize(sf::Vector2f(100.f, 100.f));
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(ScoreBoard);
