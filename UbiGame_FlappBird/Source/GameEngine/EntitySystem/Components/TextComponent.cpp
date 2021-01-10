@@ -20,7 +20,7 @@ void GameEngine::TextComponent::Update()
 
 void GameEngine::TextComponent::Render(sf::RenderTarget* target)
 {
-	__super::Render(target);
+	RenderComponent::Render(target);
 
 	if (!target)
 	{
