@@ -14,8 +14,8 @@ Each project folder will contain a UbiGame.sln file that can be opened with Visu
 The process is the following:
 
 - Open a console at the project folder.
-- run make to build
-- run ./doge_attack to run the game
+- run `make` to build
+- run `./doge_attack` to run the game
 
 ### 2. Start the Game!
 Press up/down/left/right on keyboard to move 'Doge' around the screen. Accumulate as many points as you can before time reaches 60 seconds. 
@@ -42,6 +42,6 @@ It was certainly challenging to pick up the language and create a game in a matt
 
 ## Sound credits:
 
-Clicking sound: http://soundbible.com/1945-Smashing.html 
-Background sound: https://patrickdearteaga.com/arcade-music/ 
-Presentation sound: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100772 
+*  Clicking sound: http://soundbible.com/1945-Smashing.html 
+*  Background sound: https://patrickdearteaga.com/arcade-music/ 
+*  Presentation sound: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100772 
