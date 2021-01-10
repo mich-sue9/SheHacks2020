@@ -68,7 +68,7 @@ void GameBoard::Update()
 	else if (!cleanGame){
 		//Remove everything on the board
 	
-	  //  GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_player);
+	    GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_player);
 		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_mole);
 		cleanGame = true;
 	}
